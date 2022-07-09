@@ -1,4 +1,4 @@
-**printf**
+#printf**
 
 The project consists of normal functions, derived functions a man page and a README.md file.
 
@@ -14,7 +14,7 @@ The project consists of normal functions, derived functions a man page and a REA
 * va_arg (man 3 va_arg)
 
 
-This produces output according to a format specifiers,as shown below.
+**This produces output according to a format specifiers,as shown below**
 
 _printf("Length:[%d, %i]\n", len, len);
 
@@ -78,4 +78,5 @@ printf("Len:[%d]\n", len2);
 
 _printf("Unknown:[%r]\n");
 
-# This project is developed by **Marcus Ruth** and **Micheal Oriyomi**
+
+This project is developed by **Marcus Ruth** and **Micheal Oriyomi** **ALX cohort 7**
