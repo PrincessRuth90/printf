@@ -1,91 +1,54 @@
 #include "main.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 /**
- * printIdentifiers - prints special characters
- * @next: character after the %
- * @arg: argument for the indentifier
- * Return: the number of characters printed
- * (excluding the null byte used to end output to strings)
- */
-
-int printIdentifiers(char next, va_list arg)
-{
-int functsIndex;
-identifierStruct functs[] = {
-{"c", print_char},
-{"d", print_int},
-{"s", print_str},
-{"u", print_unsigned},
-{"i", print_int},
-{"b", print_unsignedToBinary},
-{"x", print_hex},
-{"o", print_oct},
-{"X", print_HEX},
-{"S", print_STR},
-{NULL, NULL}
-};
-
-for (functsIndex = 0; functs[functsIndex].indentifier != NULL; functsIndex++)
-{
-if (functs[functsIndex].indentifier[0] == next)
-return (functs[functsIndex].printer(arg));
-}
-return (0);
-}
-
-/**
- * _printf - mimic printf from stdio
- * Description: produces output according to a format
- * write output to stdout, the standard output stream
- * @format: character string composed of zero or more directives
+ * _printf - Function that prints formatted output.
  *
- * Return: the number of characters printed
- * (excluding the null byte used to end output to strings)
- * return -1 for incomplete identifier error
+ * @format: a string composed of zero or more characters to print or use as
+ * directives that handle subsequent arguments and special characters.
+ *
+ * Description: This function can take a variable number and type of arguments
+ * that should be printed to standard output.
+ *
+ * Return: int
  */
-
 int _printf(const char *format, ...)
 {
-unsigned int i;
-int identifierPrinted = 0, charPrinted = 0;
-va_list arg;
+	va_list args;
+	int i = 0, chars_printed = 0;
 
-va_start(arg, format);
-if (format == NULL)
-return (-1);
-
-for (i = 0; format[i] != '\0'; i++)
-{
-if (format[i] != '%')
-{
-_putchar(format[i]);
-charPrinted++;
-continue;
-}
-if (format[i + 1] == '%')
-{
-_putchar('%');
-charPrinted++;
-i++;
-continue;
-}
-if (format[i + 1] == '\0')
-return (-1);
-
-identifierPrinted = printIdentifiers(format[i + 1], arg);
-if (identifierPrinted == -1 || identifierPrinted != 0)
-i++;
-if (identifierPrinted > 0)
-charPrinted += identifierPrinted;
-
-if (identifierPrinted == 0)
-{
-_putchar('%');
-charPrinted++;
-}
-}
-va_end(arg);
-return (charPrinted);
+	va_start(args, format);
+	while (format && format[i])
+	{
+		if (format[i] != '%')
+		{
+			chars_printed += _putchar(format[i]);
+		}
+		else if (format[i + 1])
+		{
+			i++;
+			if (format[i] == 'c' || format[i] == 's')
+				chars_printed += format[i] == 'c' ? _putchar(va_arg(args, int)) :
+				print_string(va_arg(args, char *));
+			else if (format[i] == 'd' || format[i] == 'i')
+				chars_printed += print_num(va_arg(args, int));
+			else if (format[i] == 'b')
+				chars_printed += print_binary((unsigned int)va_arg(args, int));
+			else if (format[i] == 'r')
+				chars_printed += print_reverse(va_arg(args, char *));
+			else if (format[i] == 'R')
+				chars_printed += print_rot13(va_arg(args, char *));
+			else if (format[i] == 'o' || format[i] == 'u' ||
+			format[i] == 'x' || format[i] == 'X')
+				chars_printed += print_odh(format[i], (unsigned int)va_arg(args, int));
+			else if (format[i] == 'S')
+				chars_printed += print_S(va_arg(args, char *));
+			else if (format[i] == 'p')
+				chars_printed += print_pointer(va_arg(args, void *));
+			else
+				chars_printed += print_unknown_spec(format[i]);
+		}
+		i++;
+	}
+	va_end(args);
+	return (chars_printed);
 }
