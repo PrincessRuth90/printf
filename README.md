@@ -79,4 +79,4 @@ printf("Len:[%d]\n", len2);
 _printf("Unknown:[%r]\n");
 
 
-This project is developed by **Marcus Ruth** and **Micheal Oriyomi** **ALX cohort 7**
+This  project is developed by **Marcus Ruth** and **Micheal Oriyomi** **ALX cohort 7**
