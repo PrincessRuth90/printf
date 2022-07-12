@@ -1,6 +1,7 @@
+
 #include "main.h"
 
-/********* PRINT CHAR *********/
+/************************* PRINT CHAR *************************/
 
 /**
  * print_char - Prints a char
@@ -19,7 +20,7 @@ int print_char(va_list types, char buffer[],
 
 	return (handle_write_char(c, buffer, flags, width, precision, size));
 }
-/********* PRINT A STRING *********/
+/************************* PRINT A STRING *************************/
 /**
  * print_string - Prints a string
  * @types: List a of arguments
@@ -30,7 +31,6 @@ int print_char(va_list types, char buffer[],
  * @size: Size specifier
  * Return: Number of chars printed
  */
-
 int print_string(va_list types, char buffer[],
 	int flags, int width, int precision, int size)
 {
@@ -75,7 +75,7 @@ int print_string(va_list types, char buffer[],
 
 	return (write(1, str, length));
 }
-/********* PRINT PERCENT SIGN *********/
+/************************* PRINT PERCENT SIGN *************************/
 /**
  * print_percent - Prints a percent sign
  * @types: Lista of arguments
@@ -98,7 +98,7 @@ int print_percent(va_list types, char buffer[],
 	return (write(1, "%%", 1));
 }
 
-/********* PRINT INT *********/
+/************************* PRINT INT *************************/
 /**
  * print_int - Print int
  * @types: Lista of arguments
@@ -142,7 +142,7 @@ int print_int(va_list types, char buffer[],
 	return (write_number(is_negative, i, buffer, flags, width, precision, size));
 }
 
-/********* PRINT BINARY *********/
+/************************* PRINT BINARY *************************/
 /**
  * print_binary - Prints an unsigned number
  * @types: Lista of arguments
